@@ -14,6 +14,10 @@ def plot_frequency(input_data, output_data, sample_rate):
     fft_original = np.fft.fft(input_data)
     fft_filtered = np.fft.fft(output_data)
     freqs = np.fft.fftfreq(len(input_data), 1 / sample_rate)
+    logfreqs = np.logspace(np.log10(freqs[0]),np.log10(freqs[-1]),len(freqs))
+
+    print(fft_original)
+    print(fft_filtered)
 
     plt.semilogx(freqs[:len(input_data)//2], 20*np.log10(np.abs(fft_original)[:len(input_data)//2]), label='Original')
     plt.semilogx(freqs[:len(input_data)//2], 20*np.log10(np.abs(fft_filtered)[:len(input_data)//2]), label='Filtered')

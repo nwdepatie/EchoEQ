@@ -2,6 +2,7 @@ from biquad import BiquadFilter
 from plot import plot_signals
 import numpy as np
 import scipy.io.wavfile as wav
+import time
 
 def apply_biquad_filter(wav):
     # Initialize the filter
@@ -38,7 +39,11 @@ def main():
     data = remove_offset(data)
 
     # Apply the filter to the input file
+    start = time.time()
     filtered_data = apply_biquad_filter(data)
+    end = time.time()
+
+    print(f'Elapsed Time:\t{end-start}')
 
     output_wav(filtered_data, output_filename, sample_rate)
 
