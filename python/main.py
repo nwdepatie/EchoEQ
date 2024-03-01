@@ -3,11 +3,34 @@ from plot import plot_signals
 import numpy as np
 import scipy.io.wavfile as wav
 import time
+import cmath as math
 
-def apply_biquad_filter(wav):
+def apply_biquad_filter(wav, sampling_rate):
     # Initialize the filter
-    # TODO: Dynamically compute coefficients
-    b0, b1, b2, a1, a2 = 0.5, 0.5, 0.5, -0.5, 0.5
+    center_freq = 1000
+    A = 2
+    Q = 0.5
+
+    W0 = (2*3.14 * center_freq) / sampling_rate
+    S  = math.sin(W0)
+    alpha = S / (2*Q)
+
+    b0 =  1 - alpha*A
+    b1 = -2 * math.cos(W0)
+    b2 =  1 - alpha*A
+    a0 =  1 + alpha/A
+    a1 = -2 * math.cos(W0)
+    a2 =  1 - alpha/A
+
+    b0 /= a0
+    b1 /= a0
+    b2 /= a0
+    a1 /= a0
+    a2 /= a0
+
+    print(f"{b0} {b1} {b2} {a0} {a1} {a2}")
+
+    #b0, b1, b2, a1, a2 = 0.2, 2, 0.5, -0.2, 0.5
     filter = BiquadFilter(b0, b1, b2, a1, a2)
 
     # Process the data through the filter
@@ -40,7 +63,7 @@ def main():
 
     # Apply the filter to the input file
     start = time.time()
-    filtered_data = apply_biquad_filter(data)
+    filtered_data = apply_biquad_filter(data, sample_rate)
     end = time.time()
 
     print(f'Elapsed Time:\t{end-start}')
