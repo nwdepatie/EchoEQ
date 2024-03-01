@@ -13,3 +13,6 @@
 - Run `pipenv shell`
 - Run `python3 main.py`
 - Play back `output_filtered.wav` and compare with `hal_9000.wav`
+
+Sample output for hal_9000.wav sampling:
+![zynqtest1](./hal9000_output.png)
