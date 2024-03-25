@@ -53,7 +53,7 @@ def output_wav(filtered_data, output_filename, sample_rate):
     print(f"Filtered signal written to {output_filename}")
 
 def main():
-    input_filename = 'hal_9000.wav'
+    input_filename = 'sweep.wav'
     output_filename = 'output_filtered.wav'
 
     # Read the WAV file
