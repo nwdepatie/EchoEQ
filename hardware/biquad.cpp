@@ -1,5 +1,8 @@
 #include <hls_stream.h>
+#include <ap_axi_sdata.h>
 #include "biquad.h"
+
+typedef ap_axis<32,1,1,1> AXI_VAL;
 
 data_t biquad(coef_t c[N], data_t new_data) {
 	coef_t b0, b1, b2, a1, a2;
