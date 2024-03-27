@@ -19,7 +19,8 @@ data_t biquad(coef_t c[N], data_t new_data) {
 	x_arr[0] = new_data;
 
 	/* filter the signal */
-	acc = b0*x_arr[0] + b1*x_arr[1] + b2*x_arr[2] - a1*x_arr[1] - a2*x_arr[2];
+	acc = b0*x_arr[0] + b1*x_arr[1] + b2*x_arr[2];
+	acc = acc - a1*y_arr[1] - a2*y_arr[2];
 	y_arr[0] = acc;
 
 	/* feedback shift register */
@@ -36,7 +37,7 @@ void filt (hls::stream<AXI_VAL>& y, coef_t c[N], hls::stream<AXI_VAL>& x) {
 	// coef_t taps[N] = {0,-10,-9,23,56,63,56,23,-9,-10,0};
 
 	while(1) {
-#pragma HLS PIPELINE II=1
+#pragma HLS PIPELINE II=5
 
 		AXI_VAL tmp1;
 		x.read(tmp1);
