@@ -37,7 +37,7 @@ void filt (hls::stream<AXI_VAL>& y, coef_t c[N], hls::stream<AXI_VAL>& x) {
 	// coef_t taps[N] = {0,-10,-9,23,56,63,56,23,-9,-10,0};
 
 	while(1) {
-#pragma HLS PIPELINE II=5
+#pragma HLS PIPELINE II=4
 
 		AXI_VAL tmp1;
 		x.read(tmp1);
